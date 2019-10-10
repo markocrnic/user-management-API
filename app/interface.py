@@ -11,8 +11,8 @@ import datetime
 app = Flask(__name__)
 CORS(app)
 
-user_with_username_get_request = 'http://10.0.200.68:5003/api/users/'
-register_new_user = 'http://10.0.200.68:5003/api/users/'
+user_with_username_get_request = 'http://10.0.200.68:5000/users/'
+register_new_user = 'http://10.0.200.68:5000/users/'
 headers = {'content-type': 'application/json'}
 secret = 'planthealthcare'
 
