@@ -5,11 +5,11 @@ from schema import Schema, And, Use
 import json
 import requests
 import jwt
+import datetime
 
 
 app = Flask(__name__)
 CORS(app)
-
 
 user_with_username_get_request = 'http://10.0.200.68:5003/api/users/'
 register_new_user = 'http://10.0.200.68:5003/api/users/'
@@ -43,11 +43,10 @@ def login():
 
         if sha256_crypt.verify(password, data['password']):
             print('Passwords match!')
-            encoded_jwt = jwt.encode(data, secret, algorithm='HS256')
-
             response = create_response(data)
+            encoded_jwt = jwt.encode(response, secret, algorithm='HS256').decode('utf-8')
 
-            return {'user': response, 'token': str(encoded_jwt)}
+            return {'token': str(encoded_jwt)}
 
         else:
             print('Passwords do not match!')
@@ -80,11 +79,10 @@ def admin_login():
 
         if sha256_crypt.verify(password, data['password']):
             print('Passwords match!')
-            encoded_jwt = jwt.encode(data, secret, algorithm='HS256')
-
             response = create_response(data)
+            encoded_jwt = jwt.encode(response, secret, algorithm='HS256').decode('utf-8')
 
-            return {'user': response, 'token': str(encoded_jwt)}
+            return {'token': str(encoded_jwt)}
 
         else:
             print('Passwords do not match!')
@@ -131,10 +129,9 @@ def create_response(data):
     new_data['username'] = data['username']
     new_data['email'] = data['email']
     new_data['admin'] = data['admin']
+    new_data['exp'] = datetime.datetime.utcnow() + datetime.timedelta(days=2)
 
     return new_data
-
-
 
 
 if __name__ == '__main__':
