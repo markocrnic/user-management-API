@@ -2,17 +2,53 @@ from flask import Flask, request
 from flask_cors import CORS
 from passlib.hash import sha256_crypt
 from schema import Schema, And, Use
+from ast import literal_eval
 import json
 import requests
 import jwt
 import datetime
+import ftputil
 
 
 app = Flask(__name__)
 CORS(app)
 
-user_with_username_get_request = 'http://10.0.200.68:5000/users/'
-register_new_user = 'http://10.0.200.68:5000/users/'
+
+def readpathsfromftp():
+    try:
+        a_host = ftputil.FTPHost('10.0.200.68', 'empiry', '3mp1ry')
+
+        for (dirname, subdirs, files) in a_host.walk("/projects/planthealthcare/api-gateway/"):
+            for f in files:
+                if f == 'paths.txt':
+                    a_host.download(dirname + f, f)
+                    with open(f) as txtfile:
+                        content = txtfile.read()
+                        print(str(content))
+        a_host.close()
+
+        return literal_eval(content)
+
+    except Exception as e:
+        print(e)
+        a_host.close()
+
+
+def getpath(path):
+    path_dict = readpathsfromftp()
+    apiname = path.split('/')[0]
+    if apiname in path_dict:
+        apipath = path_dict[apiname] + path
+        print(apipath)
+        return apipath
+    else:
+        print('Path not found: ' + path)
+        return '404'
+
+
+user_with_username_get_request = getpath('users/')
+register_new_user = getpath('users/')
+
 headers = {'content-type': 'application/json'}
 secret = 'planthealthcare'
 

@@ -4,3 +4,4 @@ passlib
 requests
 PyJWT
 schema
+ftputil
