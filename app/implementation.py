@@ -118,6 +118,7 @@ def checkRegister(request):
 
 def create_response(data):
     new_data = {}
+    new_data['user_id'] = data['user_id']
     new_data['first_name'] = data['first_name']
     new_data['last_name'] = data['last_name']
     new_data['username'] = data['username']
