@@ -14,7 +14,7 @@ def login():
 
 @app.route('/usermanagement/adminlogin/', methods=['POST'])
 def admin_login():
-    return implementation.checkLoginAdmin(request, True)
+    return implementation.checkLogin(request, True)
 
 
 @app.route('/usermanagement/register/', methods=['POST'])
