@@ -9,12 +9,12 @@ CORS(app)
 
 @app.route('/usermanagement/login/', methods=['POST'])
 def login():
-    return implementation.checkLogin(request)
+    return implementation.checkLogin(request, False)
 
 
 @app.route('/usermanagement/adminlogin/', methods=['POST'])
 def admin_login():
-    return implementation.checkLoginAdmin(request)
+    return implementation.checkLoginAdmin(request, True)
 
 
 @app.route('/usermanagement/register/', methods=['POST'])
