@@ -3,7 +3,7 @@ import requests
 import jwt
 import datetime
 from passlib.hash import sha256_crypt
-from api_management import getpath
+from api_management.api_management import getpath
 from schema import Schema, And, Use
 
 user_get_request = getpath('users/')
