@@ -6,3 +6,6 @@ PyJWT
 schema
 ftputil
 PyYAML
+jaeger_client
+Flask_OpenTracing
+opentracing-instrumentation
