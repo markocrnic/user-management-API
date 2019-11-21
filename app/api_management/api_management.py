@@ -1,9 +1,11 @@
 import ftputil
 from ast import literal_eval
 from loadconfig import load_config
+import os
 
 
 config = load_config('config/config.yml')
+#config = load_config('../config/config.yml')
 
 
 def readpathsfromftp():
@@ -14,6 +16,7 @@ def readpathsfromftp():
             for f in files:
                 if f == 'paths.txt':
                     a_host.download(dirname + f, f)
+                    os.chmod('paths.txt', 0o777)
                     with open(f) as txtfile:
                         content = txtfile.read()
                         print(str(content))

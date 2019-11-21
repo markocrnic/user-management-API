@@ -6,6 +6,7 @@ from loadconfig import load_config
 def initializejaeger():
 
     jaegerdata = load_config('config/config.yml')
+    #jaegerdata = load_config('../config/config.yml')
     print(jaegerdata)
 
     config = Config(config={'sampler': {'type': 'const', 'param': 1},
