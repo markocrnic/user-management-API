@@ -9,3 +9,4 @@ PyYAML
 jaeger_client
 Flask_OpenTracing
 opentracing-instrumentation
+tornado==5.1
